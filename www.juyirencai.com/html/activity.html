@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>聚一人才官网</title>
+	</head>
+	<link rel="stylesheet" type="text/css" href="../style/base.css"/>
+	<link rel="stylesheet" type="text/css" href="../style/style.css"/>
+	<link rel="stylesheet" type="text/css" href="../style/pack/swiper.min.css"/>
+	<!--<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">--> 
+	<script src="../js/pack/jquery-3.3.1.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/pack/bootstrap-paginator.js" type="text/javascript" charset="utf-8"></script>
+	<style type="text/css">
+		.pagenum-click{
+			background: #F7B530;
+		}
+		.pagenum-click:hover{
+			color: black;
+		}
+
+	</style>
+	<body>
+<!-----------------header------------------------>	
+		<div class="header"></div>
+		<script type="text/javascript">
+			$(function(){
+				$(".header").load("../html/header2.html")
+			})
+		</script>
+
+<!---------------轮播图---------------------->
+  <div class="swiper-container swiper-container2">
+    <div class="swiper-wrapper swiper-wrapper2">
+       </div>
+
+
+  </div>
+  <div class="activity-content" id="showCenter">
+  		<div class="activity-content-title">
+  			企业动态
+  		</div>
+		<ul class="activity-content-list">
+		
+		</ul>
+		<div class="pagination">
+			<ul>
+				<li ><a  class="prev-page" style="width: 80px;">上一页</a></li>
+				<li class="listPage">
+
+				</li>
+
+				<li><a  class="next-page" style="width: 80px;">下一页</a></li>
+			</ul>
+		</div>
+  </div>
+
+ 	<ul class="pop-top ">
+ 		<li><a>消息</a></li>
+ 		<li><a>二维码</a>
+ 			<div class="er-code">
+ 				<img src="../img/qrcode.png"/>
+ 				<p>扫描下载app</p>
+ 			</div>
+ 		</li>
+ 		<li class="go-top"><a href="#">顶部</a></li>
+ 		<li class="drag">拖动</li>
+ 	</ul>
+<!---------------------------footer----------------------------------------->
+		<div class="footer"></div>
+		<script type="text/javascript">
+			$(function(){
+				$(".footer").load("../html/footer2.html")
+			})
+		</script>		
+	</body>
+	  <!-- Swiper JS -->
+ <script src="../js/pack/swiper-4.3.3.min.js" type="text/javascript" charset="utf-8"></script>
+ <script src="../js/banner.js" type="text/javascript" charset="utf-8"></script>
+
+ <script type="text/javascript">
+ 	var allPageLength=""//总长度
+ 
+ 			$(function(){
+ 				
+ 			$(".listPage").find("a").eq(0).addClass("pagenum-click")	
+ 				
+
+ 				
+				$.ajax({
+				type:"post",
+				url:"http://47.100.237.163:8082/teds/sel2",
+//				url:"http://106.15.187.138:8082/teds/sel2",
+//				url:"http://192.168.1.51:8082/teds/sel2",
+				
+             	dataType:"json",
+				data:{      
+				},
+				success:function(data){
+//				console.log("listAll新数据",data)
+				var list=data.data.records
+				var listPageLength=data.data.totalpage
+				allPageLength=listPageLength;
+					var str = "";
+					var str2 = "";
+			
+
+					for(var i=0;i<list.length;i++){
+						str+= `
+							<li>
+								
+								<a style="display:block;width:100%" href="articleDetails.html?id=${list[i].id}&pagenum=${data.data.pagenum}">
+								<img src="../img/news_left.png"/>
+								${list[i].dynamicsTitle}
+								<span style="float:right">${list[i].createTime}</span>
+								</a>
+								
+							</li>
+						`
+					}
+					for(var i=0;i<listPageLength;i++){
+						str2+= `
+								<a class="listPage-a" >${i+1}</a>
+						`
+					}
+				$(".activity-content-list").html(str);
+				$(".listPage").html(str2);	
+//				listPage		
+				$(".listPage").find("a").eq(0).addClass("pagenum-click")
+						
+				},
+				error:function(data){
+//					alert("服务器异常！！！")
+				}
+				})
+				
+/**
+ * 	**************************************点击pageNum******************************************************************************************
+ * */
+				$(".listPage").on('click', 'a',function(){
+					$(".listPage").find("a").removeClass("pagenum-click");
+					$(this).addClass("pagenum-click");
+//					$(this).attr('id',"pagenum-click");
+					var pagenum=$(this).html()
+						$.ajax({
+						type:"post",
+						url:"http://47.100.237.163:8082/teds/sel2",
+//						url:"http://106.15.187.138:8082/teds/sel2",
+		//				url:"http://192.168.1.59:8082/teds/sel2",
+						
+		             	dataType:"json",
+						data:{ 
+							pageNum:pagenum
+						},
+						success:function(data){
+//						console.log("listAll新数据",data)
+//						console.log("listAll新数据pagenum!!!!!!!!!!!!!!!!!!!!!!!!!",data.data.pagenum)
+						var list=data.data.records
+						var listPageLength=data.data.totalpage
+							var str = "";
+							var str2 = "";
+					
+		
+							for(var i=0;i<list.length;i++){
+								str+= `
+									<li>
+										<a style="display:block;width:100%" href="articleDetails.html?id=${list[i].id}&pagenum=${data.data.pagenum}">
+										<img src="../img/news_left.png"/>
+										${list[i].dynamicsTitle}
+										<span style="float:right">${list[i].createTime}</span>
+										</a>
+									</li>
+								`
+							}
+							for(var i=0;i<listPageLength;i++){
+								str2+= `
+										<a class="listPage-a" >${i+1}</a>
+								`
+							}
+						$(".activity-content-list").html(str);
+//						$(".listPage").html(str2);	
+		//						
+		
+								
+						},
+						error:function(data){
+		//					alert("服务器异常！！！")
+						}
+						})
+						});
+						
+	//点击上一页		**************************************************************************	
+			$(".prev-page").click(function(){
+			var pagenumNow=$(".pagenum-click").html();
+			$(".listPage").find("a").removeClass("pagenum-click");
+			
+			pagenumNow--
+//			console.log(pagenumNow)
+			
+			if(pagenumNow>0){
+				$(".listPage").find("a").eq(pagenumNow-1).addClass("pagenum-click")
+				
+			}else{
+				pagenumNow==1
+				$(".listPage").find("a").eq(0).addClass("pagenum-click")
+//				console.log("已经是最后一个了个")
+			}
+				
+				
+			$.ajax({
+				type:"post",
+				url:"http://47.100.237.163:8082/teds/sel2",
+//				url:"http://106.15.187.138:8082/teds/sel2",
+//				url:"http://192.168.1.59:8082/teds/sel2",
+				
+             	dataType:"json",
+				data:{      
+					pageNum:pagenumNow
+				},
+				success:function(data){
+//				console.log("listAll新数据",data)
+				var getPagenum=data.data.pagenum;
+				
+				var list=data.data.records
+				var listPageLength=data.data.totalpage
+				allPageLength=listPageLength;
+					var str = "";
+					var str2 = "";
+			
+
+					for(var i=0;i<list.length;i++){
+						str+= `
+							<li>
+								<a style="display:block;width:100%" href="articleDetails.html?id=${list[i].id}&pagenum=${data.data.pagenum}">
+								<img src="../img/news_left.png"/>
+								${list[i].dynamicsTitle}
+								<span style="float:right">${list[i].createTime}</span>
+								</a>
+							</li>
+						`
+					}
+					for(var i=0;i<listPageLength;i++){
+						str2+= `
+								<a class="listPage-a" >${i+1}</a>
+						`
+					}
+				$(".activity-content-list").html(str);
+//				$(".listPage").html(str2);	
+//				listPage		
+
+						
+				},
+				error:function(data){
+//					alert("服务器异常！！！")
+				}
+				})
+				
+			})
+	//点击下一页*******************************************************************
+			$(".next-page").click(function(){
+			var pagenumNow=$(".pagenum-click").html();
+			$(".listPage").find("a").removeClass("pagenum-click");
+			
+			pagenumNow++
+//			console.log(pagenumNow,allPageLength)
+			
+			
+			if(pagenumNow<=allPageLength){
+				$(".listPage").find("a").eq(pagenumNow-1).addClass("pagenum-click")
+				
+			}else{
+				pagenumNow=allPageLength
+				$(".listPage").find("a").eq(allPageLength-1).addClass("pagenum-click")
+//				console.log("已经是最后一个了个",pagenumNow)
+			}
+			$.ajax({
+				type:"post",
+				url:"http://47.100.237.163:8082/teds/sel2",
+//				url:"http://106.15.187.138:8082/teds/sel2",
+//				url:"http://192.168.1.59:8082/teds/sel22",
+				
+             	dataType:"json",
+				data:{     
+					pageNum:pagenumNow
+				},
+				success:function(data){
+//				console.log("listAll新数据",data)
+				var list=data.data.records
+				var listPageLength=data.data.totalpage
+				allPageLength=listPageLength;
+					var str = "";
+					var str2 = "";
+			
+
+					for(var i=0;i<list.length;i++){
+						str+= `
+							<li>
+								<a style="display:block;width:100%" href="articleDetails.html?id=${list[i].id}&pagenum=${data.data.pagenum}">
+								<img src="../img/news_left.png"/>
+								${list[i].dynamicsTitle}
+								<span style="float:right">${list[i].createTime}</span>
+								</a>
+							</li>
+						`
+					}
+					for(var i=0;i<listPageLength;i++){
+						str2+= `
+								<a class="listPage-a" >${i+1}</a>
+						`
+					}
+				$(".activity-content-list").html(str);
+//				$(".listPage").html(str2);	
+//				listPage		
+
+						
+				},
+				error:function(data){
+//					alert("服务器异常！！！")
+				}
+				})
+			})
+
+
+ 	})
+ 	
+ </script>
+</script>
+
+</html>

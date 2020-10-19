@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>聚一人才官网</title>
+	</head>
+	
+	<link rel="stylesheet" type="text/css" href="../style/base.css"/>
+	<link rel="stylesheet" type="text/css" href="../style/style.css"/>
+	<link rel="stylesheet" type="text/css" href="../style/pack/swiper.min.css"/>
+	<!--<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">--> 
+	<script src="../js/pack/jquery-3.3.1.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/pack/bootstrap-paginator.js" type="text/javascript" charset="utf-8"></script>
+	<body>
+<!-----------------header------------------------>	
+		<div class="header"></div>
+		<script type="text/javascript">
+			$(function(){
+				$(".header").load("../html/header2.html")
+			})
+		</script>
+
+	<div class="article-details">
+		<div class="article-title">
+			
+		</div>
+		<div class="article-content">
+			<p class="article-content-details"></p>
+		</div>
+	</div>
+
+<!--导航栏二-->
+
+ 	<ul class="pop-top ">
+ 		<li><a>消息</a></li>
+ 		<li><a>二维码</a>
+ 			<div class="er-code">
+ 				<img src="../img/qrcode.png"/>
+ 				<p>扫描下载app</p>
+ 			</div>
+ 		</li>
+ 		<li class="go-top"><a href="#">顶部</a></li>
+ 		<li class="drag">拖动</li>
+ 	</ul>
+<!---------------------------footer----------------------------------------->
+	<div class="footer"></div>
+		<script type="text/javascript">
+			$(function(){
+				$(".footer").load("../html/footer2.html")
+			})
+		</script>		
+	</body>
+	  <!-- Swiper JS -->
+ <script src="../js/pack/swiper-4.3.3.min.js" type="text/javascript" charset="utf-8"></script>
+ <script src="../js/banner.js" type="text/javascript" charset="utf-8"></script>
+ <script type="text/javascript">
+ 	
+ 
+ 			$(function(){
+ 				
+ 				var curentId=GetRequest().id;
+ 				var pagenum=GetRequest().pagenum;
+// 				console.log(curentId,pagenum)
+ 				
+ 				
+ 				
+ 				
+
+ 				
+				$.ajax({
+				type:"post",
+				url:"http://47.100.237.163:8082/teds/sel2",
+//				url:"http://106.15.187.138:8082/teds/sel2",
+
+				
+             	dataType:"json",
+				data:{      
+					pageNum:pagenum
+				},
+				success:function(data){
+//				console.log("listAll新数据",data)
+				var list=data.data.records
+				var listPageLength=data.data.totalpage
+					var str = "";
+
+					for(var i=0;i<list.length;i++){
+						if(list[i].id==curentId){
+//							console.log("当前的标题",list[i].dynamicsTitle)
+//							console.log("标题",list[i].dynamicsTitle)
+							$(".article-title").html(list[i].dynamicsTitle);
+							$(".article-content-details").html(list[i].dynamicsContent);
+							
+						}
+					}
+
+				
+
+
+						
+				},
+				error:function(data){
+//					alert("服务器异常！！！")
+				}
+				})
+				
+
+
+
+		//筛选从上个页面传来的ID
+		function GetRequest() {
+						var url = location.search; //获取url中"?"符后的字串
+						var theRequest = new Object();
+						 if (url.indexOf("?") != -1) {
+						       var str = url.substr(1);
+						       strs = str.split("&");
+						       for (var i = 0; i < strs.length; i++) {
+						           theRequest[strs[i].split("=")[0]] = decodeURIComponent(strs[i].split("=")[1]);
+						       }
+						   }
+						   return theRequest;
+						}
+		
+		 	})
+ 	
+ </script>
+</script>
+<script type="text/javascript">
+	$(function(){
+
+	})
+	
+</script>
+</html>

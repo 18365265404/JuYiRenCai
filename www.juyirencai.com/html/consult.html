@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>聚一人才官网</title>
+	</head>
+	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"> 
+	<link rel="stylesheet" type="text/css" href="../style/pack/layui.css"/>
+	<link rel="stylesheet" type="text/css" href="../style/base.css"/>
+	<link rel="stylesheet" type="text/css" href="../style/style.css"/>
+	
+	
+  </style>
+	<script src="../js/pack/jquery-3.3.1.js" type="text/javascript" charset="utf-8"></script>
+	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="../js/pack/base64.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/pack/ajaxfileupload.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/pack/jquery-form.js" type="text/javascript" charset="utf-8"></script>
+	<body>
+<!-----------------header------------------------>	
+<div class="header"></div>
+		<script type="text/javascript">
+			$(function(){
+				$(".header").load("../html/header2.html")
+			})
+		</script>
+
+
+ <div class="consult-content" id="showCenter">
+		
+		<div class="consult-content-img">
+			<form id="form1" enctype="multipart/form-data" action="" method="post" >
+			<input type="file" name="image" id="file" value="上传图片" style="opacity: 0; height: 255px; background: red; position: absolute; z-index: 100;"/>
+			<img src="../img/icon_camera.png"/ style="width: 100px;">
+			<img id="upload-img" src=""/ style="width: 254px; height: 254px; position: absolute;left:0 ; top: -80px; display: none;">
+			<button type="button" id="myForm" class="btn btn-success" style=" display: none;  position: absolute; top: 265px ;left:0;">上传图片
+			</button>
+			<button type="button" class="btn btn-success" style="width: 120px; position: absolute;left:68px; top: 190px;">本地上传图片</button>
+			
+			
+			</form>
+			
+		</div>
+		<div class="consult-content-message">
+			<p style="font-size: 22px;">基本信息</p>
+			<form class="form-horizontal" role="form" style="font-size: 14px; color: #333333;">
+			  <div class="form-group form-group1" >
+			    <label for="inputPassword" class="col-sm-2 control-label" style="margin-top: 10px;">所属行业：</label>
+			    <div class="col-sm-11 group-checkbox" style="height: 50px;">
+				    <label class="checkbox-inline" style="margin-top: 10px;">
+				        <input type="checkbox" id="inlineCheckbox1" class="industryInvolved" value="婚庆行业"> 婚庆行业
+				    </label>
+				    <label class="checkbox-inline" style="margin-top: 10px;">
+				        <input type="checkbox" id="inlineCheckbox2" class="industryInvolved" value="美容行业"> 美容行业
+				    </label>
+				    <label class="checkbox-inline" style="margin-top: 10px;">
+				        <input type="checkbox" id="inlineCheckbox2" class="industryInvolved" value="餐饮行业"> 餐饮行业
+				    </label>
+				    <label class="checkbox-inline" style="margin-top: 10px;">
+				        <input type="checkbox" id="inlineCheckbox2" class="industryInvolved" value="家政行业"> 家政行业
+				    </label>
+			    </div>
+			  </div>
+			  
+			  <div class="form-group form-group1">
+			    <label for="inputPassword" class="col-sm-2 control-label">企业名称：</label>
+			    <div class="col-sm-9 group-text">
+					<input type="text" class="form-control enterpriseName" placeholder="请输入">
+			    </div>
+			  </div>
+			  <div class="form-group form-group1">
+			    <label for="inputPassword" class="col-sm-2 control-label">法人电话：</label>
+			    <div class="col-sm-9 group-text">
+					<input type="text" class="form-control personPhone" placeholder="请输入">
+			    </div>
+			  </div>
+			  <div class="form-group form-group1">
+			    <label for="inputPassword" class="col-sm-2 control-label">企业地址：</label>
+			    <div class="col-sm-9 group-text">
+					<input type="text" class="form-control businessAddress" placeholder="请输入">
+			    </div>
+			  </div>
+			  <div class="form-group form-group1">
+			    <label for="inputPassword" class="col-sm-2 control-label">经营面积：</label>
+			    <div class="col-sm-9 group-text">
+					<input type="text" class="form-control businessArea" placeholder="请输入">
+			    </div>
+			  </div>
+			  <div class="form-group form-group1">
+			    <label for="inputPassword" class="col-sm-2 control-label">企业类型：</label>
+			    <div class="col-sm-11 group-checkbox">
+				    <label class="checkbox-inline">
+				        <input type="checkbox" id="inlineCheckbox1" class="enterpriseType" value="连锁"> 连锁
+				    </label>
+				    <label class="checkbox-inline">
+				        <input type="checkbox" id="inlineCheckbox2" class="enterpriseType" value="单位"> 单位
+				    </label>
+				    <label class="checkbox-inline">
+				        <input type="checkbox" id="inlineCheckbox2" class="enterpriseType" value="会所"> 会所
+				    </label>
+				    <label class="checkbox-inline">
+				        <input type="checkbox" id="inlineCheckbox2" class="enterpriseType" value="其他"> 其他
+				    </label>
+				    
+			    </div>
+			  </div>
+			  <div class="form-group form-group1">
+			    <label for="inputPassword" class="col-sm-2 control-label">企业规模：</label>
+			    <div class="col-sm-11 group-checkbox">
+				    <label class="checkbox-inline">
+				        <input type="checkbox" id="inlineCheckbox1" class="enterpriseScale" value="10人以下"> 10人以下
+				    </label>
+				    <label class="checkbox-inline">
+				        <input type="checkbox" id="inlineCheckbox2" class="enterpriseScale" value="10-20人"> 10-20人
+				    </label>
+				    <label class="checkbox-inline">
+				        <input type="checkbox" id="inlineCheckbox2" class="enterpriseScale" value="20人以上"> 20人以上
+				    </label>
+			    </div>
+			  </div>
+			  <div class="form-group form-group1">
+			    <label for="inputPassword" class="col-sm-2 control-label">经营方式：</label>
+			    <div class="col-sm-11 group-checkbox">
+				    <label class="checkbox-inline">
+				        <input type="checkbox" id="inlineCheckbox1" class="businessPractice" value="专卖店"> 专卖店
+				    </label>
+				    <label class="checkbox-inline">
+				        <input type="checkbox" id="inlineCheckbox2" class="businessPractice" value="综合店"> 综合店
+				    </label>
+				    <label class="checkbox-inline">
+				        <input type="checkbox" id="inlineCheckbox2" class="businessPractice" value="产品公司"> 产品公司
+				    </label>
+				    <label class="checkbox-inline">
+				        <input type="checkbox" id="inlineCheckbox2" class="businessPractice" value="代理公司"> 代理公司
+				    </label>
+			    </div>
+			  </div>
+			  
+			  <div class="form-group form-group1">
+			    <label for="inputPassword" class="col-sm-2 control-label">需要人才：</label>
+			    <div class="col-sm-9 group-text">
+					<textarea class="form-control" id="needTalent" class="needTalent" rows="3"></textarea>
+			    </div>
+			  </div>	
+			  
+			  <button type="button" class="btn btn-subment">提交所有信息</button>
+			</form>
+		</div>		
+		
+		<!-- 模态框（Modal） -->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+							&times;
+						</button>
+						<h4 class="modal-title" id="myModalLabel">
+							提示
+						</h4>
+					</div>
+					<div class="modal-body" style="text-align: center;">
+						
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+						</button>
+
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal -->
+		</div>
+ </div>
+
+<!--导航栏二-->
+
+ 	<ul class="pop-top ">
+ 		<li><a>消息</a></li>
+ 		<li><a>二维码</a>
+ 			<div class="er-code">
+ 				<img src="../img/qrcode.png"/>
+ 				<p>扫描下载app</p>
+ 			</div>
+ 		</li>
+ 		<li class="go-top"><a href="#">顶部</a></li>
+ 		<li class="drag">拖动</li>
+ 	</ul>
+<!---------------------------footer----------------------------------------->
+<div class="footer"></div>
+		<script type="text/javascript">
+			$(function(){
+				$(".footer").load("../html/footer3.html")
+			})
+		</script>		
+	</body>
+
+<!--表单提交-->
+
+
+<script type="text/javascript">
+		
+
+$(function(){
+
+    
+}); 
+</script>
+
+<script type="text/javascript">
+	$(function(){
+	//base64对象
+	
+	var uuid="";
+	var globalUrl=""//用于判断是否选择图片
+	var base64 = new Base64();  
+	
+	/**
+	 * 图片显示部分
+	 * */
+	  $("#file").change(function(){
+	  	$("#upload-img").show()
+	    var objUrl = getObjectURL(this.files[0]) ;
+	//  var formData = new FormData($("#uploadFormvideo")[0]);
+	//  alert(formData) ;
+		var formData=new FormData();
+		formData.append("file",$("#file")[0].files[0]);
+	//	console.log(formData.get("file"),"22222222222222222222222222222222222222")
+		globalUrl=objUrl//设给全局值
+	    if (objUrl) 
+	    {
+	      $("#upload-img").attr("src", objUrl);
+	      $("#upload-img").removeClass("hide");
+	    }
+	  });
+  
+	
+	
+
+		//提交部分
+		$(".btn-subment").click(function(){
+
+			var industryInvolved=getValue(".industryInvolved");//行业的值
+			var enterpriseName=$(".enterpriseName").val();//企业名称
+			var personPhone=$(".personPhone").val();//法人电话
+			var businessAddress=$(".businessAddress").val();//企业地址
+			var businessArea=$(".businessArea").val();//经营面积
+			var enterpriseType=getValue(".enterpriseType");//企业类型
+			var enterpriseScale=getValue(".enterpriseScale");//企业规模
+			var businessPractice=getValue(".businessPractice");//经营方式
+			var needTalent=$("#needTalent").val();//需要人才
+			//转base64的值
+//			var industryInvolved=base64.encode(getValue(".industryInvolved"));//行业的值
+//			var enterpriseName=base64.encode($(".enterpriseName").val());//企业名称
+//			var personPhone=base64.encode($(".personPhone").val());//法人电话
+//			var businessAddress=base64.encode($(".businessAddress").val());//企业地址
+//			var businessArea=base64.encode($(".businessArea").val());//经营面积
+//			var enterpriseType=base64.encode(getValue(".enterpriseType"));//企业类型
+//			var enterpriseScale=base64.encode(getValue(".enterpriseScale"));//企业规模
+//			var businessPractice=base64.encode(getValue(".businessPractice"));//经营方式
+//			var needTalent=base64.encode($("#needTalent").val());//需要人才
+//			alert(base64.encode(industryInvolved))
+//			console.log("industryInvolved的值...."+industryInvolved
+//						+"enterpriseName的值...."+enterpriseName
+//						+"personPhone的值...."+personPhone
+//						+"businessAddress的值...."+businessAddress
+//						+"businessArea的值..."+businessArea
+//						+"enterpriseType的值..."+enterpriseType
+//						+"enterpriseScale的值..."+enterpriseScale
+//						+"businessPractice..."+businessPractice
+//						+"needTalent的值..."+needTalent)
+			
+
+//			if(!globalUrl){
+//					$('#myModal').modal('show');
+//					$('.modal-body').html("请您填写完表单信息")
+//			}
+			 if(industryInvolved==""||
+			    enterpriseName==""||
+				personPhone==""||
+				businessAddress==""||
+				businessArea==""||
+				industryInvolved==""||
+				enterpriseType==""||
+				enterpriseScale==""||
+				businessPractice==""||
+				needTalent==""){
+					
+					$('#myModal').modal('show');
+					$('.modal-body').html("请您填写完表单信息")
+			}else{
+				$.ajax({
+				type:"post",
+				url:"http://47.100.237.163:8082/bcin/insert",
+//				url:"http://192.168.1.51:8082/bcin/insert",
+				
+             	dataType:"json",
+				data:{      
+					 industryInvolved : industryInvolved,//所属行业
+					 enterpriseName : enterpriseName,//企业名称
+					 personPhone : personPhone,//法人电话
+					 businessAddress : businessAddress,//企业地址
+					 businessArea : businessArea,//经营面积
+					 enterpriseType:enterpriseType,//企业类型
+					 enterpriseScale:enterpriseScale,//企业规模
+					 businessPractice:businessPractice,//经营方式
+					 needTalent:needTalent//需要人才
+				},
+				success:function(data){
+//					console.log("答应的数据",)
+					var firstStatus=data.status;
+						switch (firstStatus){
+							case 200:
+								uuid=data.data;
+								
+								if(globalUrl){
+									
+									//如果有图片调用上传图片接口						
+										$("#form1").attr("action","http://47.100.237.163:8082/qn/uploadImg"+"?enterpriseUUID="+uuid);
+//										$("#form1").attr("action","http://192.168.1.57:8082/qn/uploadImg"+"?enterpriseUUID="+uuid);
+
+										$("#form1").ajaxSubmit(function(data){
+											
+											var twoStatus=JSON.parse(data).status
+											if(twoStatus==200){
+												$('#myModal').modal('show')
+												$('.modal-body').html("提交成功")
+												setTimeout(function(){
+													
+													window.location.href="activity.html"
+												},1000)
+											}
+				
+				
+										})
+									}else{
+										
+//										$("#form1").attr("action","http://47.100.237.163:8082/qn/uploadImg"+"?uuid="+uuid);
+//										$("#form1").ajaxSubmit(function(data){
+//											
+//											var twoStatus=JSON.parse(data).status
+//											if(twoStatus==200){
+//												$('#myModal').modal('show')
+//												$('.modal-body').html("提交成功")
+//												setTimeout(function(){
+//													
+//													window.location.href="activity.html"
+//												},1000)
+//											}
+//				
+//				
+//										})
+									$('#myModal').modal('show')
+												$('.modal-body').html("提交成功")
+												setTimeout(function(){
+													
+													window.location.href="activity.html"
+												},1000)
+									}
+								
+								
+								break;
+							default:
+									$('#myModal').modal('show')
+									$('.modal-body').html("数据请求异常，请稍后重试！！！")
+								break;
+						}
+					
+						
+						
+
+				},
+				error:function(data){
+//					alert("服务器异常！！！")
+				}
+				
+			}); 
+			}
+			
+			
+//图片上传			
+//			$.ajaxFileUpload({
+//	            url: "http://192.168.1.57:8080/bcin/qiniuUpload",//用于文件上传的服务器端请求地址
+//	            secureuri: false,//一般设置为false
+//	            fileElementId: 'file',//文件上传控件的id属性  <input type="file" id="upload" name="upload" />
+//	            dataType: 'text',//返回值类型 一般设置为json
+//	            success: function (data){  //服务器成功响应处理函数
+//
+//	//                console.log(data);
+//	//                $("#imageUrl").html(data);
+////	                var img = "&lt;img src="+data+"&gt;"
+////	                var html = "<br><span>"+img+"</span>";
+////	                $("#imgurl").append(html);
+//			alert(data)
+//	            }
+//	        });
+			
+				/** 验证文件是否导入成功  */
+	$("#myForm").click(function(){
+//		console.log("uuid111111111111111",uuid)
+		$("#form1").attr("action","http://47.100.237.163:8080/uploadImg"+"?uuid="+uuid);
+		$("#form1").ajaxSubmit(function(data){
+			
+			$('#myModal').modal('show')
+			$('.modal-body').html(data.data)
+		})
+	})
+			
+})
+		
+		
+		//封装遍历后的所选中的check值的数组
+		function getValue (obj){
+				let arr=[];
+				let str=""
+			$(obj +':checked').each(function(){
+			    arr.push($(this).val())
+			    
+			});
+			
+			for(var i= 0;i<arr.length;i++){
+				str+=arr[i]+","
+
+			}
+			var strs=str.substring(0,str.length-1)
+			return strs;
+			}
+	})
+	
+</script>
+<script type="text/javascript">
+
+
+  //建立一個可存取到該file的url
+  function getObjectURL(file) {
+    var url = null ;
+    if (window.createObjectURL!=undefined) 
+    { // basic
+      url = window.createObjectURL(file) ;
+    }
+    else if (window.URL!=undefined) 
+    {
+      // mozilla(firefox)
+      url = window.URL.createObjectURL(file) ;
+    } 
+    else if (window.webkitURL!=undefined) {
+      // webkit or chrome
+      url = window.webkitURL.createObjectURL(file) ;
+    }
+    return url ;
+  }
+
+</script>
+</html>

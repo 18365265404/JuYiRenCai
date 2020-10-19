@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>聚一人才官网</title>
+	</head>
+	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.1.0/css/bootstrap.min.css"> 
+	<link rel="stylesheet" type="text/css" href="../style/pack/swiper.min.css"/>
+	<link rel="stylesheet" type="text/css" href="../style/base.css"/>
+	<link rel="stylesheet" type="text/css" href="../style/style.css"/>
+
+	<script src="../js/pack/jquery-3.3.1.js" type="text/javascript" charset="utf-8"></script>
+	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  </style>
+
+	<body>
+<!-----------------header------------------------>	
+		<div class="header"></div>
+		<script type="text/javascript">
+			$(function(){
+				$(".header").load("../html/header2.html")
+			})
+		</script>
+
+<!---------------轮播图---------------------->
+ <div class="swiper-container swiper-container2">
+    <div class="swiper-wrapper swiper-wrapper2">
+      </div>
+
+
+  </div>
+ <div class="content" >
+ 	
+ 
+  <div class="public-content-job" id="showCenter">
+
+  	
+  	<!--------------------------婚庆行业----------------------------------->
+	
+  </div>
+
+</div>
+  
+  
+
+
+		<ul class="pop-nav-fixed">
+			<li><a href="#pop-job1">NO1</a></li>
+
+		</ul>
+		
+		
+<!--导航栏二-->
+
+ 	<ul class="pop-top ">
+ 		<li><a>消息</a></li>
+ 		<li><a>二维码</a>
+ 			<div class="er-code">
+ 				<img src="../img/qrcode.png"/>
+ 				<p>扫描下载app</p>
+ 			</div>
+ 		</li>
+ 		<li class="go-top"><a href="#">顶部</a></li>
+ 		<li class="drag">拖动</li>
+ 	</ul>		
+<!---------------------------footer----------------------------------------->
+		<div class="footer"></div>
+		<script type="text/javascript">
+			$(function(){
+				$(".footer").load("../html/footer3.html")
+			})
+		</script>
+
+	</body>
+	  <!-- Swiper JS -->
+ <script src="../js/pack/swiper-4.3.3.min.js" type="text/javascript" charset="utf-8"></script>
+ <script src="../js/banner.js" type="text/javascript" charset="utf-8"></script>
+ 
+ <script type="text/javascript">
+ 
+
+		$.ajax({
+				type:"post",
+//				url:"http://106.15.187.138:8082/bcin/insert",
+//				url:"http://192.168.1.57:8080/ty/businessDisplay",
+//				url:"http://47.100.237.163/ty/businessDisplay",
+				url:"http://47.100.237.163:8082/ty/businessDisplay2",
+				
+             	dataType:"json",
+				data:{      
+//					 industryInvolved : industryInvolved,//所属行业
+
+				},
+				success:function(data){
+//					console.log(data.data,"显示的总数据")
+					var list1=data.data.list;
+					var list2=data.data.list2;
+					var list3=data.data.list3;
+//					console.log(list1,"list数据")
+					var arrs=[];
+
+//					console.log("list1新数据",list1)
+					var str = "";
+					var str2 = "";
+			
+			
+					for(var i=0;i<list1.length;i++){
+						str+= `
+						
+						<div id="pop-job${list1[i].id}" class="public-content-job-repeat">
+			  		
+						  		<div class="public-content-job-repeat-title">
+						  			<p>${list1[i].industryName}</p>
+						  			<ul id="myTab" class="nav nav-tabs title-right-ul" style="border:none">
+									  
+						  				${
+									 			jobsFn(list1[i],list2)
+										}
+			
+									</ul>
+						
+						  		</div>
+							  	<div id="myTabContent" class="tab-content myTable">
+							  	
+							  		${
+									 			jobsBoxFn(list1[i],list2,list3)
+									}
+			
+						  	</div>
+						 	
+					  	</div>
+						`
+					}
+									
+				$(".public-content-job").html(str);
+				//设置第一个值为算中active	
+				$(".title-right-ul").children("li:first-child").addClass("active tab-color-click");			
+				$(".myTable").children("ul:first-child").addClass("tab-pane fade in active");	
+				
+				
+				//导航数据
+
+				for(var i=0;i<list1.length;i++){
+						str2+= `
+						<li><a href="#pop-job${list1[i].id}"><span>${list1[i].industryName}</span></a> <span>●</span></li>	
+						
+						`
+					}
+				$(".pop-nav-fixed").html(str2);
+					
+				},
+				error:function(data){
+//					alert("服务器异常！！！")
+				}
+				})
+
+		//右边工作种类
+		function jobsFn(val1,val2){
+				let strs="";
+
+				for(var i=0;i<val2.length;i++){
+					if(val1.id==val2[i].tIndustryId){
+						strs+=`
+							<li class="tab-color-click" ><a href="#tab${val2[i].id}" style="background: #FAFAFA; border:none " data-toggle="tab" >${val2[i].industryTypeName}</a></li>
+						  `
+					}
+					
+				}
+				return strs;
+		}
+		//下面盒子
+		function jobsBoxFn(val1,val2,val3){
+				let strs="";
+
+				for(var i=0;i<val2.length;i++){
+					if(val1.id==val2[i].tIndustryId){
+						strs+=`
+					  		<ul class="tab-pane fade " id="tab${val2[i].id}">
+					  		
+					  		${
+					  			jobKindFnDetail(val1,val2[i],val3)
+					  		}
+					  		
+
+	
+						 	</ul>
+					 	`
+					}
+					
+				}
+				return strs;
+		}		
+		
+       function jobKindFnDetail(val1,val2,val3){
+       	let strs="";
+				for(var i=0;i<val3.length;i++){
+					
+					if(val2.id==val3[i].tIndustryTypeId){
+						strs+=`
+					 		<li>
+					 			<a href="consult.html">
+					 			
+					 			<span>${val3[i].industryRoleName}</span>
+					 			</a>
+					 		</li>
+					 		`
+					}
+					
+
+				}
+				return strs;
+       }
+				
+ </script>
+  <script type="text/javascript">
+ 			
+
+		$(window).scroll(function(){
+				var scropHeight = $(this).scrollTop();
+				if(scropHeight>550){
+					 $(".pop-nav-fixed").css('display','block');
+//					$(".pop-nav-fixed").css({"display:""none"})
+//					pop-nav-fixed
+				}else{
+					 $(".pop-nav-fixed").css('display','none');
+				}
+		});
+
+ </script>
+</html>
+
+</html>

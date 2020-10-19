@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>聚一人才官网</title>
+	</head><!DOCTYPE html>
+
+	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"> 
+	<link rel="stylesheet" type="text/css" href="../style/base.css"/>
+	<link rel="stylesheet" type="text/css" href="../style/style.css"/>
+	<link rel="stylesheet" type="text/css" href="../style/pack/swiper.min.css"/>
+	<style type="text/css">
+		::-webkit-scrollbar {
+            width: 0px;
+        }
+	</style>
+
+  </style>
+	<script src="../js/pack/jquery-3.3.1.js" type="text/javascript" charset="utf-8"></script>
+	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<body>
+<!-----------------header------------------------>	
+		<div class="header"></div>
+		<script type="text/javascript">
+			$(function(){
+				$(".header").load("../html/header2.html")
+			})
+		</script>
+
+<!---------------轮播图---------------------->
+  <div class="swiper-container swiper-container2">
+    <div class="swiper-wrapper swiper-wrapper2">
+      </div>
+
+
+  </div>
+ <div class="content"  id="showCenter">
+ 	
+ 
+  	<div class="public-content-job">
+
+  	
+  	<!--------------------------婚庆行业----------------------------------->
+	
+						  		
+  		<!--要循环的-->
+	
+  	</div>
+
+ </div>
+  
+  
+
+</div>
+<!--导航-->
+
+		<ul class="pop-nav-fixed">
+
+		</ul>
+
+
+<!--导航栏二-->
+
+ 	<ul class="pop-top ">
+ 		<li><a>消息</a></li>
+ 		<li><a>二维码</a>
+ 			<div class="er-code">
+ 				<img src="../img/qrcode.png"/>
+ 				<p>扫描下载app</p>
+ 			</div>
+ 		</li>
+ 		<li class="go-top"><a href="#">顶部</a></li>
+ 		<li class="drag">拖动</li>
+ 	</ul>
+<!---------------------------footer----------------------------------------->
+		<div class="footer"></div>
+		<script type="text/javascript">
+			$(function(){
+				$(".footer").load("../html/footer3.html")
+			})
+		</script>		
+	</body>
+	  <!-- Swiper JS -->
+ <script src="../js/pack/swiper-4.3.3.min.js" type="text/javascript" charset="utf-8"></script>
+ <script src="../js/banner.js" type="text/javascript" charset="utf-8"></script>
+ 
+ <script type="text/javascript">
+
+		$.ajax({
+				type:"post",
+//				url:"http://106.15.187.138:8082/bcin/insert",
+				url:"http://47.100.237.163:8082/ty/businessDisplay2",
+				
+             	dataType:"json",
+				data:{      
+				},
+				success:function(data){
+//				console.log("listAll新数据",data)
+					var list1=data.data.list;
+					var list2=data.data.list2;
+					var list3=data.data.list3;
+//					console.log("list1新数据",list1)
+
+
+//					console.log("list2新数据",list2)
+//					console.log("list3新数据",list3)
+					var str = "";
+			
+
+					for(var i=0;i<list2.length;i++){
+						str+= `
+ 								<div class="public-content-job-train-repeat"  id="pop-job${list2[i].id}">
+						  		
+						  		<div class="public-content-job-train-repeat-title" style="position: relative;">
+						  			<p>${list2[i].industryTypeName}</p>
+						  			<div class="swiper-button" style="position: absolute; right: 0;top:25px; width: 60px;color: #00CC52; line-height:40px ;font-size: 20px;">
+							  			<div class="swiper-button-next swiper-button-next${list2[i].id}   swiper-button-white" style="background: none; width: 20px;  margin-left: 30px; color:black ">></div>
+								 		<div class="swiper-button-prev swiper-button-prev${list2[i].id}   swiper-button-white " style="background: none; width: 20px;margin-right: 40px; color:black;"><</div>
+						  			</div>
+						
+						  		</div>
+						
+								  <div class="swiper-container swiper${list2[i].id}-container  swiper-container-all" style="height: 145px; margin-top: 10px;">
+								    <div class="swiper-wrapper   swiper-wrapper-list">
+								    
+								    
+								     ${
+								      	jobsFn(list2[i].id,list3)
+								      }
+								      
+								    </div>
+
+								  </div>
+							 	
+						  		</div>
+						`
+					}
+			
+//			window.onresize=resizeBannerImage;//当窗口改变宽度时执行此函数
+//			function resizeBannerImage()
+//			  {
+//			   var winW = $(window).width();
+//			   va if( $(window).width() > 600 ) {
+//			       /* 这里是要执行的代码 */
+//			 
+//			   }
+//			  }
+				$(".public-content-job").html(str);
+						for(var i=0;i<list2.length;i++){
+							var swiper = new Swiper(`.swiper${list2[i].id}-container`, {
+							      slidesPerView: 5,		  
+							      spaceBetween: 0,
+							      navigation: {
+							        nextEl: `.swiper-button-next${list2[i].id}`,
+							        prevEl: `.swiper-button-prev${list2[i].id}`,
+							      },
+													
+							  });	
+						}
+						
+						
+						
+							//导航数据
+				let str2=""
+				for(var i=0;i<list2.length;i++){
+						str2+= `
+						<li><a href="#pop-job${list2[i].id}"><span>${list2[i].industryTypeName}</span></a> <span>●</span></li>	
+					
+						`
+					}
+				$(".pop-nav-fixed").html(str2);
+								
+
+						
+				},
+				error:function(data){
+//					alert("服务器异常！！！")
+				}
+				})
+
+		//右边工作种类
+		function jobsFn(val1,val2){
+
+				let strs="";
+
+
+				for(var i=0;i<val2.length;i++){
+					if(val1==val2[i].tIndustryTypeId){
+									strs+=`
+									<div class="swiper-slide swiper-slide-all">
+										 <div class="swiper-slide-all-detail">
+										 
+										 	<a href="consultPerson.html">
+										 	<span>${val2[i].industryRoleName}</span>
+										 	</a>
+										 </div>
+								      </div>
+								      
+								
+							`				
+					}
+						
+				}
+				return strs;
+		
+}
+	
+ </script>
+ <script type="text/javascript">
+ 			
+
+		$(window).scroll(function(){
+				var scropHeight = $(this).scrollTop();
+				if(scropHeight>550){
+					 $(".pop-nav-fixed").css('display','block');
+//					$(".pop-nav-fixed").css({"display:""none"})
+//					pop-nav-fixed
+				}else{
+					 $(".pop-nav-fixed").css('display','none');
+				}
+		});
+
+ </script>
+</html>
+
+</html>
